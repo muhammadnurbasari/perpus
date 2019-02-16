@@ -9,9 +9,10 @@ include '../config/crud.php';
 $read = new db_crud();
 $queryagt = "SELECT * FROM anggota WHERE is_active = '1' ";
 $read_ang = $read->read($queryagt);
-$querytotal = "SELECT COUNT(id_anggota) FROM anggota WHERE is_active = '1'";
-$totanggota = $read->read($querytotal);
 ?>
+<script src="../assets/jquery-3.3.1.js"></script>
+<script src="../assets/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="../assets/jquery.dataTables.min.css">
 <div class="col-sm-10">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
@@ -20,9 +21,8 @@ $totanggota = $read->read($querytotal);
 			<strong><?= $_SESSION['nama']; ?></strong>
 		</div>
 	</div>
-	<button class="btn btn-success" type="button" data-target="#tambah" data-toggle="modal">Tambah</button><br/>
-	<strong style="float: left;">Total Anggota :</strong><kbd><?= $totanggota[0]['COUNT(id_anggota)']; ?></kbd>
-	<table class="table table-striped">
+	<button class="btn btn-success" type="button" data-target="#tambah" data-toggle="modal">Tambah</button><br/><br/>
+	<table id="dtAnggota" class="table table-striped">
 		<thead>
 			<th>ID</th>
 			<th>NPM</th>
@@ -114,14 +114,17 @@ include 'footer.php';
 
 <!-- Script Tampil Hapus -->
  <script type="text/javascript">
-    $(document).on("click","#hapusmodal", function(){
-      var id = $(this).data('id');
-      var nama = $(this).data('nama');
-      
-      $("#hapusAnggota #id").val(id);
-      $("#hapusAnggota #nama").val(nama);
-     
+	$(document).on("click","#hapusmodal", function(){
+		var id = $(this).data('id');
+		var nama = $(this).data('nama');
+		
+		$("#hapusAnggota #id").val(id);
+		$("#hapusAnggota #nama").val(nama);
     })
+
+	$(document).ready(function() {
+		$('#dtAnggota').DataTable();
+	});
   </script>
 
 
