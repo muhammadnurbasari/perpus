@@ -13,12 +13,12 @@ class db_crud extends db_connect
 	}
 /*CREATE*/	
 public function create($query)
-	{
-		$result = $this->conn->query($query);
+{
+	$result = $this->conn->query($query);
 		
-			return $result;
+	return $result;
 		
-	}
+}
 /*SELESAI CREATE*/
 
 
@@ -70,13 +70,27 @@ public function upload()
 	$eror = $_FILES['photo']['error'];
 	$tmpname = $_FILES['photo']['tmp_name'];
 
+	// cek ekstensi file
+	$ekstensiGambarValid = array("jpg","png","jpeg");
+	$x = explode('.', $fileName);
+	$ekstensi = strtolower(end($x));
+
+
+	if (!in_array($ekstensi, $ekstensiGambarValid)) {
+		echo "<script>
+				alert('ekstensi not valid');
+				document.location.href = '../views/katalog.php';
+		</script>";
+		return;
+	}
+
 	// cek gambar tidak dipilih
 	if ($eror === 4) {
 		echo "<script>
-				alert('Pilih Gambar TErlebih Dahulu');
+				alert('Pilih Gambar Terlebih Dahulu');
 				document.location.href = '../views/katalog.php';
 		</script>";
-		return false;
+		return;
 	}
 
 	// cek ukuran gambar
@@ -85,22 +99,10 @@ public function upload()
 				alert('gambar terlalu besar');
 				document.location.href = '../views/katalog.php';
 		</script>";
-		return false;
+		return;
 	}
 
-	// cek ekstensi file
-	$ekstensiGambarValid = ["jpg","png","jpeg"];
-	$ekstensiGambar = explode('.', $fileName);
-	$ekstensiGambar = strtolower(end($ekstensiGambar));
 
-
-	if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
-		echo "<script>
-				alert('ekstensi not valid');
-				document.location.href = '../views/katalog.php';
-		</script>";
-		return false;
-	}
 
 	// gambar siap upload
 	// generate kode unik terlebih dahulu
