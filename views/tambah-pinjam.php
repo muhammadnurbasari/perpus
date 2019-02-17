@@ -32,8 +32,8 @@ include '../config/crud.php';
  		text-align: center;
  	}
  </style>
-
-<form method="POST" action="../config/proses_pinjam.php?aksi=tambah">
+<script src="../assets/jquery.min.js"></script>
+<form method="POST" action="../config/proses_pinjam.php">
 <div class="col-sm-10">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
@@ -43,18 +43,17 @@ include '../config/crud.php';
 		</div>
 
 		<div class="panel-body">
-			<button class="btn btn-primary" type="submit" name="simpan">Simpan</button><hr>
 			<div class="row">
 				<div class="col-sm-6">		
 					<div class="form-group">
 						<label for="idPinjam">ID PINJAM :</label>
-						<input class="form-control" id="headertr" type="text" id="idPinjam" name="idPinjam" value="<?= time(); ?>" disabled/>
+						<input class="form-control" type="text" name="header[id_pinjam]" value="<?= time(); ?>" disabled/>
 					</div>
 					<div class="form-group">
 						<label>ANGGOTA :</label>
 						<!-- menampilkan nama anggota berdasarkan id anggota ambil dari database -->
-						<select name="idAnggota"  class="form-control" id="headertr" required/>
-						 <option value="" disabled selected/>---Pilih Anggota---</option>
+						<select name="idAnggota"  class="form-control" name="head[id_anggota]" required>
+						 <option value="" disabled selected>---Pilih Anggota---</option>
 						 <?php 
 						 foreach ($tampilAnggota as $key) : ?>
 						 	<option value="<?= $key['id_anggota']; ?>"><?= $key['id_anggota']?> --- <?= $key['nama'];  ?></option>
@@ -65,47 +64,50 @@ include '../config/crud.php';
 				<div class="col-sm-6">		
 					<div class="form-group">
 						<label>Tanggal Pinjam :</label>
-						<input class="form-control" id="headertr" type="text" disabled name="tglPinjam" value="<?= date('m/d/y')  ?>">
+						<input class="form-control" type="text" disabled name="head[tgl_pinjam]" value="<?= date('d/m/y')  ?>">
 					</div>
 					<div class="form-group">
 						<label>Tanggal Kembali ( Tempo ) :</label>
-						<input class="form-control" id="headertr" type="date" name="tglKembali" required/>
+						<input class="form-control" type="date" name="head[tgl_kembali]" required/>
 					</div>
 				</div>
 			</div>
-			<label><h3 class="title"><kbd>Buku Yang Dipinjam :</kbd></h3></label>
-			<table class="table table-bordered">
-				<thead>
-					<th>NO</th>
-					<th>BUKU</th>
-					<th style="width: 100px;">JUMLAH</th>
-				</thead>
-				<tbody>
-					<?php 
-					$no = 1;
-					
-					while ($no <= 3) { ?>
-						<tr>
-							<td class="no"><?= $no; ?></td>
-							<td>
-								<select class="form-control" name="buku">
-									<option value="" selected/>---Pilih Buku---</option>
-									<?php 
-										foreach ($tampilBuku as $buku) { ?>
-											<option value="<?= $buku['id_buku']; ?>"><?= $buku['id_buku'] ?>--- <?= $buku['judul']; ?></option>
-									<?php } ?>
-								</select>
-							</td>
-							<td><input class="form-control" name="jumlah" type="number"></td>
-						</tr>
-					<?php $no++; } ?>
-				</tbody>
-			</table>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<label><h3 class="title">Buku Yang Dipinjam :</h3></label><br/>
+					<table class="table table-bordered">
+						<thead>
+							<th>BUKU</th>
+							<th>JUMLAH</th>
+							<th>AKSI</th>
+						</thead>
+						<tbody id="item_table"></tbody>
+					</table>
+					<button class="btn btn-success" type="button" name="add" id="add">Tambah</button><br/><br/>
+				</div>
+  			</div>
+			<button class="btn btn-info" type="submit">Simpan</button><br/><br/>
 		</div>
 	</div>
 </div>		
 </form>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("button#add").click(function(){
+    		var html = '';
+        	html += '<tr>';
+        	html += '<td><select name="item[buku_id][]" class="form-control item_unit"><option value="">Pilih Buku</option><option value="Matematika">Matematika</option><option value="PPKN">PPKN</option></select></td>';
+        	html += '<td><input type="number" name="item[qty][]" class="form-control item_quantity" /></td>';
+        	html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus"></span></button></td></tr>';
+			$('#item_table').append(html);
+  		});
 
- <?php 
+		// delete list sparepart  
+		$(document).on('click', '.remove', function(){
+			$(this).closest('tr').remove();
+		});
+	});
+</script>
+<?php 
 include 'footer.php';
-  ?>
+?>
