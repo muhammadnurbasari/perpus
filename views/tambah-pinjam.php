@@ -31,7 +31,7 @@ include '../config/crud.php';
  	th{
  		text-align: center;
  	}
- </style>
+</style>
 <script src="../assets/jquery.min.js"></script>
 <form method="POST" action="../config/proses_pinjam.php">
 <div class="col-sm-10">
@@ -86,20 +86,26 @@ include '../config/crud.php';
 					<button class="btn btn-success" type="button" name="add" id="add">Tambah</button><br/><br/>
 				</div>
   			</div>
-			<button class="btn btn-info" type="submit">Simpan</button><br/><br/>
+  			<div class="panel-footer">
+				<button class="btn btn-info" type="submit" id="btnsubmit">Simpan</button><br/><br/>
+			</div>
 		</div>
 	</div>
 </div>		
 </form>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("button#add").click(function(){
+		$("#add").click(function(){
     		var html = '';
         	html += '<tr>';
         	html += '<td><select name="item[buku_id][]" class="form-control item_unit"><option value="">Pilih Buku</option><option value="Matematika">Matematika</option><option value="PPKN">PPKN</option></select></td>';
         	html += '<td><input type="number" name="item[qty][]" class="form-control item_quantity" /></td>';
         	html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus"></span></button></td></tr>';
 			$('#item_table').append(html);
+  		});
+
+  		$("#btnsubmit").click(function(){
+  			console.log("tes");
   		});
 
 		// delete list sparepart  

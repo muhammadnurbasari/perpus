@@ -1,4 +1,4 @@
-<div class="col-sm-2 sidenav hidden-xs" style="background-color: lightblue;height: 700px;">
+<div class="col-sm-2 sidenav hidden-xs" style="background-color: lightblue;">
       <ul class="nav nav-pills nav-stacked " style="padding-top: 10px;">
         <li class="active"><a href="">Dashboard</a></li><br/>
         <li><span class="glyphicon glyphicon-book"><a href="views/katalog.php" style="margin-left: 5px;padding-top: 10px; font-size: 20px;">Katalog</a></span></li>

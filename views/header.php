@@ -7,6 +7,9 @@
 	<link rel="stylesheet" href="../assets/bootstrap.min.css">
 	<script  src="../assets/jquery.min.js"></script>
 	<script src="../assets/bootstrap.min.js"></script>
+  <script src="../assets/jquery-3.3.1.js"></script>
+  <script src="../assets/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="../assets/jquery.dataTables.min.css">
 	 <style>
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 550px}
