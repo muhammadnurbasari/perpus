@@ -5,14 +5,14 @@ include 'header.php';
 include 'side.php';
 
 include '../config/crud.php';
-	$conn = new db_crud();
+$conn = new db_crud();
 	// tampil anggota
-	$query = " SELECT id_anggota, nama FROM anggota WHERE is_active = '1' ";
-	$tampilAnggota = $conn->read($query);
+$query = " SELECT id_anggota, nama FROM anggota WHERE is_active = '1' ";
+$tampilAnggota = $conn->read($query);
 
 	// tampil buku
-	$query2 = " SELECT id_buku,judul FROM buku ";
-	$tampilBuku = $conn->read($query2);
+$query2 = " SELECT id_buku,judul FROM buku where is_active = '1'";
+$tampilBuku = $conn->read($query2);
 
 
 
@@ -47,12 +47,12 @@ include '../config/crud.php';
 				<div class="col-sm-6">		
 					<div class="form-group">
 						<label for="idPinjam">ID PINJAM :</label>
-						<input class="form-control" type="text" name="header[id_pinjam]" value="<?= time(); ?>" disabled/>
+						<input class="form-control" type="text" name="head[id_pinjam]" value="<?= time(); ?>" disabled/>
 					</div>
 					<div class="form-group">
 						<label>ANGGOTA :</label>
 						<!-- menampilkan nama anggota berdasarkan id anggota ambil dari database -->
-						<select name="idAnggota"  class="form-control" name="head[id_anggota]" required>
+						<select class="form-control" name="head[id_anggota]" required>
 						 <option value="" disabled selected>---Pilih Anggota---</option>
 						 <?php 
 						 foreach ($tampilAnggota as $key) : ?>
@@ -86,9 +86,13 @@ include '../config/crud.php';
 					<button class="btn btn-success" type="button" name="add" id="add">Tambah</button><br/><br/>
 				</div>
   			</div>
+<<<<<<< HEAD
   			<div class="panel-footer">
 				<button class="btn btn-info" type="submit" id="btnsubmit">Simpan</button><br/><br/>
 			</div>
+=======
+			<button class="btn btn-info" type="submit" name="btn_save">Simpan</button><br/><br/>
+>>>>>>> 467e2f8b4e461d0c8167e624eeaa7bbc7a5dce80
 		</div>
 	</div>
 </div>		
@@ -98,7 +102,7 @@ include '../config/crud.php';
 		$("#add").click(function(){
     		var html = '';
         	html += '<tr>';
-        	html += '<td><select name="item[buku_id][]" class="form-control item_unit"><option value="">Pilih Buku</option><option value="Matematika">Matematika</option><option value="PPKN">PPKN</option></select></td>';
+        	html += '<td><select name="item[buku_id][]" class="form-control item_unit"><option value="">Pilih Buku</option><?php foreach ($tampilBuku as $key) : ?><option value="<?= $key['id_buku']; ?>"><?= $key['id_buku']?> - <?= $key['judul'];  ?></option><?php endforeach; ?></select></td>';
         	html += '<td><input type="number" name="item[qty][]" class="form-control item_quantity" /></td>';
         	html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus"></span></button></td></tr>';
 			$('#item_table').append(html);

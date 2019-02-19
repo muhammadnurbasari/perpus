@@ -12,9 +12,7 @@ include 'side.php';
 include 'initkatalog.php';
 ?>
 
-<script src="../assets/jquery-3.3.1.js"></script>
-<script src="../assets/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" href="../assets/jquery.dataTables.min.css">
+
 
 <div class="col-sm-10" style="background-color: #ffffff;height: 550px;"> 
 
